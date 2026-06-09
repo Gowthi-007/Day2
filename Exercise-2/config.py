@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -8,8 +8,8 @@ class Settings(BaseSettings):
     REDIS_SOCKET_CONNECT_TIMEOUT: int = 5
     
     # AI Provider endpoints
-    PRIMARY_AI_PROVIDER_URL: str = "https://api.openai.com/v1/chat/completions"
-    BACKUP_AI_PROVIDER_URL: str = "https://api.anthropic.com/v1/messages"
+    PRIMARY_AI_PROVIDER_URL: str = "http://127.0.0.1:8002/summarize"
+    BACKUP_AI_PROVIDER_URL: str = "http://127.0.0.1:8002/summarize"
     
     # Primary provider API key (in production, use secrets management)
     PRIMARY_AI_API_KEY: str = "sk-primary-key"

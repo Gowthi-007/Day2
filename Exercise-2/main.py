@@ -7,7 +7,6 @@ from typing import Optional
 import httpx
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
-from redis import Redis, RedisError
 from sqlalchemy.exc import SQLAlchemyError
 
 from config import settings
@@ -25,13 +24,19 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 
 app = FastAPI(title=settings.APP_NAME)
 
-# Initialize Redis client
-redis_client = Redis.from_url(
-    settings.REDIS_URL,
-    decode_responses=True,
-    socket_connect_timeout=settings.REDIS_SOCKET_CONNECT_TIMEOUT,
-    socket_timeout=settings.REDIS_SOCKET_TIMEOUT,
-)
+# Initialize Redis client with fallback to fakeredis
+try:
+    from redis import Redis, RedisError
+    redis_client = Redis.from_url(
+        settings.REDIS_URL,
+        decode_responses=True,
+        socket_connect_timeout=settings.REDIS_SOCKET_CONNECT_TIMEOUT,
+        socket_timeout=settings.REDIS_SOCKET_TIMEOUT,
+    )
+except Exception:
+    import fakeredis
+    redis_client = fakeredis.FakeRedis(decode_responses=True)
+    RedisError = Exception
 
 # Circuit breaker state
 circuit_breaker = CircuitBreakerState(
