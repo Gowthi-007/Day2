@@ -1,0 +1,20 @@
+2026-06-09 06:16:41,277 INFO Parsing file lab-1/sample_user_data.txt
+2026-06-09 06:16:41,278 INFO Parsed JSON:
+[
+  {
+    "name": "Alice",
+    "email": "alice@example.com",
+    "age": "30"
+  },
+  {
+    "name": "Bob",
+    "email": "bob@example.com",
+    "age": "25"
+  }
+]
+2026-06-09 06:16:41,279 INFO Wrote parsed JSON to lab-1/sample_user_data.parsed.json
+2026-06-09 06:22:02,815 INFO Validated user metadata for user_id=1
+2026-06-09 06:22:02,816 INFO Ingestion successful for user_id=1
+2026-06-09 06:23:48,132 ERROR ValidationError: [{'type': 'value_error', 'loc': ('email',), 'msg': 'Value error, email must be a valid email address', 'input': 'aliceexample.com', 'ctx': {'error': ValueError('email must be a valid email address')}, 'url': 'https://errors.pydantic.dev/2.13/v/value_error'}]
+2026-06-09 06:24:15,129 ERROR ValidationError: [{'type': 'value_error', 'loc': ('email',), 'msg': 'Value error, email must be a valid email address', 'input': 'aliceexample.com', 'ctx': {'error': 'email must be a valid email address'}, 'url': 'https://errors.pydantic.dev/2.13/v/value_error'}]
+2026-06-09 06:24:15,130 ERROR Ingestion failed: [{"type": "value_error", "loc": ["email"], "msg": "Value error, email must be a valid email address", "input": "aliceexample.com", "ctx": {"error": "email must be a valid email address"}, "url": "https://errors.pydantic.dev/2.13/v/value_error"}]
