@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EcommerceItem",
+  "description": "JSON Schema for a basic ecommerce item entry",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique item identifier (UUID or SKU)"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Price in currency units"
+    },
+    "stock_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Available stock count"
+    }
+  },
+  "required": ["id", "price", "stock_count"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "id": "SKU-12345",
+      "price": 19.99,
+      "stock_count": 42
+    }
+  ]
+}
