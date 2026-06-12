@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: LogiRoute Telemetry Ingestion API
+  version: 1.0.0
+paths:
+  /v1/telemetry:
+    post:
+      summary: Ingest vehicle IoT data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelemetryPayload'
+      responses:
+        '201':
+          description: Telemetry recorded successfully
+        '422':
+          description: Validation Error - Contract Violated
+components:
+  schemas:
+    TelemetryPayload:
+      type: object
+      required:
+        - vehicle_id
+        - speed
+        - status
+      properties:
+        vehicle_id:
+          type: str
+          pattern: '^TRUCK-[0-9]{4}$'
+        speed:
+          type: number
+          minimum: 0
+          maximum: 160
+        status:
+          type: string
+          enum: [ACTIVE, IDLE, MAINTENANCE]
